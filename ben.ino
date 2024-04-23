@@ -8,7 +8,7 @@
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
 #include "DHT.h"
-#include <TridentTD_LineNotify.h>
+//#include <TridentTD_LineNotify.h>
 
 char ssid[] = "Queenieris";
 char pass[] = "Benjawanben";
@@ -29,10 +29,10 @@ void setup()
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
   pinMode(relay,OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.println(F("DHTxx test!"));
+  Serial.println(F("Succesfully Connected!"));
   dht.begin();
-//  LINE.setToken(LINE_TOKEN);
-  timer.setInterval(1000000, Sensor);
+  // LINE.setToken(LINE_TOKEN);
+  // timer.setInterval(1000000, Sensor);
 }
 
 BLYNK_WRITE(V0) {   
@@ -52,22 +52,22 @@ void loop()
   timer.run(); 
 }
 
-void Sensor()
-{
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  if (isnan(h) || isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-    delay(5000);
-    return;
-  }
-  Serial.print("Humidity is: "); 
-  Serial.println(h, 1);
-  Serial.print("Temperature is: "); 
-  Serial.println(t, 1);
+// void Sensor()
+// {
+//   float h = dht.readHumidity();
+//   float t = dht.readTemperature();
+//   if (isnan(h) || isnan(t)) {
+//     Serial.println("Failed to read from DHT sensor!");
+//     delay(5000);
+//     return;
+//   }
+//   Serial.print("Humidity is: "); 
+//   Serial.println(h, 1);
+//   Serial.print("Temperature is: "); 
+//   Serial.println(t, 1);
   
-  Blynk.virtualWrite(V2, h);
-  Blynk.virtualWrite(V3, t);
-  LINE.notify("Humidity is: "+String(h)+" %"); 
-  LINE.notify("Temperature is: "+String(t)+" C"); 
-}
+//   Blynk.virtualWrite(V2, h);
+//   Blynk.virtualWrite(V3, t);
+//   LINE.notify("Humidity is: "+String(h)+" %"); 
+//   LINE.notify("Temperature is: "+String(t)+" C"); 
+// }
